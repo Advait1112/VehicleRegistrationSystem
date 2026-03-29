@@ -4,6 +4,7 @@ pipeline {
     // This tells Jenkins to use the Maven tool we configured earlier
     tools {
         maven 'Global-Maven' 
+        jdk : 'java-25'
     }
     
     // These are the exact stages your professor asked for
