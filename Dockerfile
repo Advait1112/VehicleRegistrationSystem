@@ -1,6 +1,15 @@
-FROM eclipse-temurin:17-jre-alpine [cite: 376]
-WORKDIR /app [cite: 377]
-COPY --from=builder /app/target/vehicle-registration-system-1.0.0.jar app.jar [cite: 378]
+# Stage 1: Build the JAR using Maven
+FROM eclipse-temurin:17-jdk-alpine AS builder
+WORKDIR /app
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+# Stage 2: Run the JAR and start the dummy server for Render
+FROM eclipse-temurin:17-jre-alpine
+WORKDIR /app
+COPY --from=builder /app/target/vehicle-registration-system-1.0.0.jar app.jar
 
 # Install python3 to run our dummy server
 RUN apk add --no-cache python3
