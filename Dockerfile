@@ -17,6 +17,7 @@ RUN apk add --no-cache python3
 EXPOSE 10000
 
 # Run the Java app, then start the dummy server on Render's assigned port
-CMD java -jar app.jar && \
+# Run the Java app, then start the dummy server on Render's assigned port
+CMD java -cp app.jar com.system.vehicleregistration.Main && \
     echo "--- Java execution finished. Starting dummy server to keep Render happy ---" && \
     python3 -m http.server ${PORT:-10000}
