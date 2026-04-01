@@ -9,7 +9,7 @@ RUN mvn clean package -DskipTests
 # Stage 2: Run the JAR and start the dummy server for Render
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
-COPY --from=builder /app/target/vehicle-registration-system-1.0.0.jar app.jar
+COPY --from=builder /app/target/VehicleRegistrationSystem-1.0-SNAPSHOT.jar app.jar
 
 # Install python3 to run our dummy server
 RUN apk add --no-cache python3
